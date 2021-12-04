@@ -6,9 +6,9 @@ function setup() {
     console.log('セットアップ');
     // ドキュメント内にcanvas要素を作成し、サイズをピクセル単位で設定する。
     // https://p5js.org/reference/#/p5/createCanvas
-    // createCanvas(480, 640);
+    createCanvas(480, 640);
     // createCanvas(668, 668);
-    createCanvas(298, 228);
+    // createCanvas(298, 228);
 
     // p5 domライブラリを使ってイメージを作成し、読み込まれたらmodelReady()を呼び出す。
     // 与えられたsrcと代替テキストでDOMに<img>要素を作成して、コンテナノードが指定されている場合にはそれに追加し、
@@ -17,9 +17,9 @@ function setup() {
     // https://p5js.org/reference/#/p5/createImg
     // img = createImg('jojo.jpeg', imageReady);
 
-    // var url = 'https://i0.wp.com/marutarou.com/wp-content/uploads/2020/10/o0480064012586510803.jpg?w=480&ssl=1';
+    var url = 'https://i0.wp.com/marutarou.com/wp-content/uploads/2020/10/o0480064012586510803.jpg?w=480&ssl=1';
     // var url = 'https://i0.wp.com/marutarou.com/wp-content/uploads/2020/10/c20130901_jojoasbplay16_001_cs1w1_720x720.jpg?w=720&ssl=1';
-    var url = 'https://i0.wp.com/marutarou.com/wp-content/uploads/2020/10/c20130827_jojoasbplay23_001_cs1w1_298x.jpg?resize=298%2C223&ssl=1';
+    // var url = 'https://i0.wp.com/marutarou.com/wp-content/uploads/2020/10/c20130827_jojoasbplay23_001_cs1w1_298x.jpg?resize=298%2C223&ssl=1';
 
     // var img = new Image();
     // img.crossOrigin = 'anonymous';
@@ -134,6 +134,7 @@ function drawKeypoints() {
     for (let i = 0; i < poses.length; i++) {
         // 検出された各姿勢について、すべてのキーポイントを走査する。
         let pose = poses[i].pose;
+        // 顔部分
         for (let j = 0; j < pose.keypoints.length; j++) {
             // keypointは、部位を表すオブジェクト(rightArmやleftShoulderなど)
             let keypoint = pose.keypoints[j];
@@ -141,21 +142,34 @@ function drawKeypoints() {
             if (keypoint.score > 0.2) {
                 // シェイプの塗りに使用するカラーを設定する。
                 // https://p5js.org/reference/#/p5/fill
-                fill(255);
-                // 線とシェイプの枠線の描画に使用するカラーを設定する。
-                // https://p5js.org/reference/#/p5/stroke
-                stroke(20);
-                // 線や点、シェイプの枠線に使用する線幅を設定する。
-                // https://p5js.org/reference/#/p5/strokeWeight
-                strokeWeight(4);
-                // スクリーンに楕円を描画する。
-                // ellipse(x, y, w, [h])
-                // https://p5js.org/reference/#/p5/ellipse
-
-                // パラメータnに最も近い整数を計算する。
-                // round(n)
-                // https://p5js.org/reference/#/p5/round
-                ellipse(round(keypoint.position.x), round(keypoint.position.y), 8, 8);
+                if (j < 5) { 
+                    fill(0,0,0);
+                    // 線とシェイプの枠線の描画に使用するカラーを設定する。
+                    // https://p5js.org/reference/#/p5/stroke
+                    stroke(20);
+                    // 線や点、シェイプの枠線に使用する線幅を設定する。
+                    // https://p5js.org/reference/#/p5/strokeWeight
+                    strokeWeight(4);
+                    // スクリーンに楕円を描画する。
+                    // ellipse(x, y, w, [h])
+                    // https://p5js.org/reference/#/p5/ellipse
+                    // パラメータnに最も近い整数を計算する。
+                    // round(n)
+                    // https://p5js.org/reference/#/p5/round
+                    ellipse(round(keypoint.position.x), round(keypoint.position.y), 8, 8);
+                }
+                if (5 <= j && j < 11) {
+                    fill(0,0,255);
+                    stroke(20);
+                    strokeWeight(4);
+                    ellipse(round(keypoint.position.x), round(keypoint.position.y), 8, 8);
+                }
+                if (12 <= j && j < 18) {
+                    fill(255,0,0);
+                    stroke(20);
+                    strokeWeight(4);
+                    ellipse(round(keypoint.position.x), round(keypoint.position.y), 8, 8);
+                }
             }
         }
     }
