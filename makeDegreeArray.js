@@ -238,7 +238,7 @@ function calcDegree(a, b, c) {
     // cosθ
     cos = (v1.x * v2.x + v1.y * v2.y)/(Math.sqrt(v1.x**2 + v1.y**2) * Math.sqrt(v2.x**2 + v2.y**2));
     // 角度=arccos(cos)*(180/π)
-    degree = Math.acos(cos) * (180 / Math.PI);
+    degree = parseInt(Math.acos(cos) * (180 / Math.PI));
 
     return degree;
 }
